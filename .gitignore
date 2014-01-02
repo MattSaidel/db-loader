@@ -1,5 +1,6 @@
 .git
 script.py
+path_append.py
 dbconfig.py
 .idea
 *.pyc
