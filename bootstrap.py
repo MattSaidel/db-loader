@@ -9,3 +9,5 @@ sys.path.insert(0, os.path.dirname('/Users/matthewsaidel/Code/db-loader/*'))
 #sys.path.insert(0, os.path.dirname(os.getcwd()))
 print sys.path
 
+from datasource import engines
+from etl import fec_dataloader
