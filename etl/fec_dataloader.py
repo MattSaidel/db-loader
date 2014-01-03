@@ -1,8 +1,10 @@
-import sys
+import sys, os
 import argparse
 from sqlalchemy import Column, String, MetaData, Table
 import csv
 from datasource import engines
+
+sys.path.insert(0, os.path.dirname('/Users/matthewsaidel/Code/db-loader/'))
 
 #create DictReader object for user input file
 def load_csv_into_memory(file_input):
@@ -45,7 +47,6 @@ def load_to_db(data, table, engine):
     statement = table.insert()
     engine.execute(statement, list_data)
     print "loading to database"
-
 
 def main(args):
     engine = engines.get_postgres_engine()
