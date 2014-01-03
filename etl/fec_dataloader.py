@@ -1,6 +1,7 @@
 import sys, os
 import argparse
 from sqlalchemy import Column, String, MetaData, Table
+from sqlalchemy.orm import sessionmaker
 import csv
 from datasource import engines
 
@@ -50,12 +51,15 @@ def load_to_db(data, table, engine):
 
 def main(args):
     engine = engines.get_postgres_engine()
+    Session = sessionmaker(bind=engine, autocommit=False, autoflush=False)
+    session = Session()
     cmd_parser = argparse.ArgumentParser(description='Send input the csv loader', prog='fec_dataloader')
     cmd_parser.add_argument('file_input', type=str)
     opts = cmd_parser.parse_args(args)
     data = load_csv_into_memory(opts.file_input)
     table = create_fec_master(engine)
     load_to_db(data, table, engine)
+    session.commit()
     print "loaded to your database as Donations"
 
 if __name__ == '__main__':
